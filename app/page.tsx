@@ -4,7 +4,7 @@ import Image from 'next/image';
 // Typing for the fetched data
 interface CameData {
   name: string; // Name of the document
-  imageUrl: string; // URL of the image from Sanity
+  imageUrl: string; // URL of the image from Sanity Data
 }
 
 // Function to fetch data from Sanity
