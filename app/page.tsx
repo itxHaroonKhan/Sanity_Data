@@ -10,7 +10,7 @@ interface CameData {
 // Function to fetch data from Sanity
 async function GetData() {
   try {
-    // Added error handling for better debugging
+    // Fetch data using GROQ query
     const fetchdata = await client.fetch(`*[_type == 'textDocument']{
       name,
       "imageUrl": image.asset->url
@@ -26,12 +26,12 @@ export default async function Home() {
   // Fetch data
   const data = await GetData();
 
-  // Logging for debugging (Remove in production)
+  // Debugging purpose only (Remove in production)
   console.log(data);
 
   // Check if data is empty and provide fallback UI
   if (data.length === 0) {
-    return <p className="text-center text-white">No data available. Please check your Sanity setup.</p>;
+    return <p className="text-center text-white">No data found. Please check if Sanity is configured correctly.</p>;
   }
 
   return (
@@ -40,10 +40,10 @@ export default async function Home() {
       {
         data.map((item: CameData, i: number) => (
           <div key={i}>
-            {/* Key Usage: It's better to use unique keys instead of index */}
+            {/* Display name */}
             <h1 className="text-[20px] font-bold text-3xl">{item.name}</h1>
-            {/* Ensure next.config.js allows the domain for images */}
-            <Image src={item.imageUrl} alt="asim" width={200} height={200} />
+            {/* Display image */}
+            <Image src={item.imageUrl} alt={item.name} width={200} height={200} />
           </div>
         ))
       }
